@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/data/dummy_data.dart';
 import 'package:meals/models/meal.dart';
@@ -11,12 +12,25 @@ final favoriteMealsProvider =
 class FavoriteMealsNotifier extends StateNotifier<List<Meal>> {
   FavoriteMealsNotifier() : super([]);
 
-  void toggleMealFavoriteStatus(Meal meal) {
+  void toggleMealFavoriteStatus(BuildContext context, Meal meal) {
     final mealIsFavorite = state.contains(meal);
 
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     if (mealIsFavorite) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Removed from favorites!'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
       state = state.where((m) => m.id != meal.id).toList();
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Added to favorites!'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
       state = [...state, meal];
     }
   }

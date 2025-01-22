@@ -32,7 +32,7 @@ class TabsScreen extends ConsumerWidget {
     Widget activePage = CategoriesScreen(
       onToggleFavorite: (meal) => ref
           .read(favoriteMealsProvider.notifier)
-          .toggleMealFavoriteStatus(meal),
+          .toggleMealFavoriteStatus(context, meal),
       availableMeals: availableMeals,
     );
     var activePageTitle = 'Categories';
@@ -42,7 +42,7 @@ class TabsScreen extends ConsumerWidget {
         meals: favoriteMeals,
         onToggleFavourite: (meal) => ref
             .read(favoriteMealsProvider.notifier)
-            .toggleMealFavoriteStatus(meal),
+            .toggleMealFavoriteStatus(context, meal),
       );
       activePageTitle = 'Your Favorites';
     }
